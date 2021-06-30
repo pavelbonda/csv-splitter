@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/csv-splitter/static/css/main.ea1455b2.chunk.css",
+    "main.js": "/csv-splitter/static/js/main.8dbcc985.chunk.js",
+    "main.js.map": "/csv-splitter/static/js/main.8dbcc985.chunk.js.map",
+    "runtime-main.js": "/csv-splitter/static/js/runtime-main.ce53026d.js",
+    "runtime-main.js.map": "/csv-splitter/static/js/runtime-main.ce53026d.js.map",
+    "static/css/2.d45d6843.chunk.css": "/csv-splitter/static/css/2.d45d6843.chunk.css",
+    "static/js/2.c86037ba.chunk.js": "/csv-splitter/static/js/2.c86037ba.chunk.js",
+    "static/js/2.c86037ba.chunk.js.map": "/csv-splitter/static/js/2.c86037ba.chunk.js.map",
+    "static/js/3.aa228988.chunk.js": "/csv-splitter/static/js/3.aa228988.chunk.js",
+    "static/js/3.aa228988.chunk.js.map": "/csv-splitter/static/js/3.aa228988.chunk.js.map",
+    "index.html": "/csv-splitter/index.html",
+    "static/css/2.d45d6843.chunk.css.map": "/csv-splitter/static/css/2.d45d6843.chunk.css.map",
+    "static/css/main.ea1455b2.chunk.css.map": "/csv-splitter/static/css/main.ea1455b2.chunk.css.map",
+    "static/js/2.c86037ba.chunk.js.LICENSE.txt": "/csv-splitter/static/js/2.c86037ba.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ce53026d.js",
+    "static/css/2.d45d6843.chunk.css",
+    "static/js/2.c86037ba.chunk.js",
+    "static/css/main.ea1455b2.chunk.css",
+    "static/js/main.8dbcc985.chunk.js"
+  ]
+}
