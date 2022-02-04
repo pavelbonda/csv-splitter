@@ -1,76 +1,7 @@
 import "./App.css";
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import { Container, Jumbotron, Button, Alert } from "reactstrap";
-import streamSaver from "streamsaver";
-
-const NO_FILE = "No File Chosen";
-const ROWS_PER_FILE = 900000;
-
-async function splitFile(file, onPartChange, onFinish) {
-  const decoder = new TextDecoder();
-  const encoder = new TextEncoder();
-
-  let reader = file.stream().getReader();
-
-  let headers = null;
-  let currentPart = 0;
-  let currentRow = 0;
-  let writer = null;
-
-  while (true) {
-    const { done, value } = await reader.read();
-
-    if (done) {
-      onFinish();
-
-      if (writer) {
-        writer.close();
-      }
-
-      break;
-    }
-
-    let textChunk = decoder.decode(value);
-    let isChunkEndsWithNewLine = textChunk.slice(-1) === "\n";
-
-    let rows = textChunk.split("\n");
-
-    if (!headers) {
-      headers = rows.shift();
-    }
-
-    for (let i = 0; i < rows.length; i++) {
-      if (currentRow >= ROWS_PER_FILE) {
-        currentRow = 0;
-        writer.close();
-      }
-
-      if (currentRow === 0) {
-        currentPart += 1;
-
-        onPartChange(currentPart);
-
-        let fileStream = streamSaver.createWriteStream(
-          `${file.name
-            .split(".")
-            .slice(0, -1)
-            .join(".")}_part_${currentPart}.csv`
-        );
-        
-        writer = fileStream.getWriter();
-        await writer.write(encoder.encode(`${headers}\n`));
-      }
-
-      if (i === rows.length - 1 && !isChunkEndsWithNewLine) {
-        await writer.write(encoder.encode(`${rows[i]}`));
-      } else {
-        await writer.write(encoder.encode(`${rows[i]}\n`));
-      }
-
-      currentRow += 1;
-    }
-  }
-}
+import splitFile from "./utils/splitFile";
 
 function App() {
   const fileInput = useRef();
@@ -78,6 +9,14 @@ function App() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [currentPart, setCurrentPart] = useState(null);
   const [file, setFile] = useState(null);
+
+  useEffect(() => {
+    window.onbeforeunload = (e) => {
+      if (isProcessing) {
+        e.returnValue = `Are you sure you want to leave?`;
+      }
+    };
+  }, [isProcessing]);
 
   const onChooseFileClick = useCallback(() => {
     fileInput.current.click();
@@ -119,7 +58,7 @@ function App() {
               <input
                 type="file"
                 ref={fileInput}
-                accept=".csv"
+                accept=".csv,.gz"
                 hidden
                 onChange={onFileChange}
               />
@@ -130,7 +69,7 @@ function App() {
               >
                 Choose File
               </Button>
-              {file?.name || NO_FILE}
+              {file?.name || "No File Chosen"}
             </p>
             <p className="lead">
               <Button
