@@ -1,6 +1,6 @@
 import "./App.css";
-import React, { useState, useCallback, useRef, useEffect } from "react";
-import { Container, Jumbotron, Button, Alert } from "reactstrap";
+import { useState, useCallback, useRef, useEffect } from "react";
+import { Container, Button, Alert } from "reactstrap";
 import splitFile from "./utils/splitFile";
 
 function App() {
@@ -36,7 +36,6 @@ function App() {
 
   return (
     <Container className="mt-5">
-      <Jumbotron>
         <h1 className="display-3">CSV Splitter for Excel</h1>
         <p className="lead mb-0">
           Excel has a limit of a maximum 1 million rows per file.
@@ -88,7 +87,6 @@ function App() {
             Downloading part {currentPart}. Please, don't close this tab.
           </Alert>
         )}
-      </Jumbotron>
     </Container>
   );
 }
